@@ -1,0 +1,2 @@
+shaft_speed = float(input("Shaft speed (in rpm)?"))
+shaft_speed = float(input("Electrical Load (as a percentage)?"))
