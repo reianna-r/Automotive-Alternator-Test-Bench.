@@ -1,7 +1,7 @@
 '''
 SIMULATOR LAYER
 ==============================
-This module simulates current, voltage, and temperature for an automotive alternator 
+This layer simulates current, voltage, and temperature for an automotive alternator 
 system using user-defined inputs and mathematical models. All simulation values are 
 stored in a Pandas DataFrame for further analysis. The layer is designed to be 
 independent of both the validation logic and any user interface components.
@@ -11,13 +11,14 @@ import math
 import pandas as pd
 import numpy as np
 
-
 class Simulator:
-    '''ADD DOSCTSINRG !!!'''
+    '''Simulates the electrical and thermal behaviour of an automotive alternator by calculating current, 
+    voltage, and temperature under user-defined operating conditions. Simulation results are stored in a Pandas 
+    DataFrame for further analysis and validation.'''
+    
     def __init__(self, k_speed=1250, k_heat = 0.00009, k_cool=0.02, t_ambient=298, k_v=2000, tau_v = 3, time_step=1, ):
-        '''Initializes the simulator by defining user inputs, simulation
-    parameters, physical constants, disturbance model parameters,
-    calculation variables, and data storage structures used.'''
+        '''Initializes the simulator by defining user inputs, simulation parameters, physical constants, 
+        disturbance model parameters, calculation variables, and data storage structures used.'''
 
         # user inputs
         self.base_shaft_speed = 0
@@ -39,16 +40,19 @@ class Simulator:
         self.tau_v = tau_v
         
         # load and shaft speed disturbance model parameters
-        self.speed_noise_frac = 0.02
-        self.load_noise_frac = 0.02    
-        
+        self.speed_noise_frac = 0.005
+
+        # Load-dependent disturbance parameters
+        self.load_noise_base = 0.001
+        self.load_noise_slope = 0.012
+
         # calculation outputs
         self.shaft_speed = self.base_shaft_speed
         self.electrical_load = self.base_electrical_load
         self.current = 0.0
         self.temperature = t_ambient
         self.voltage = 0.0
-  
+
         # data storage
         self.time_history = []
         self.speed_history = []
@@ -81,14 +85,17 @@ class Simulator:
         
     ## --------------------SHAFT SPEED AND LOAD CALCULATIONS-------------------- 
     def update_operating_conditions(self):
-        '''User-defined shaft speed and electrical load inputs are treated as baseline operating
-    conditions. At each timestep, Gaussian noise is applied to these values to model
-    real-world disturbances. The noise-augmented values are used in subsequent calculations.'''
+        '''Applies disturbances to the user-defined shaft speed and electrical
+        load. Electrical-load disturbances increase with requested load.'''
 
-        self.shaft_speed = self.base_shaft_speed + np.random.normal(0, self.speed_noise_frac * self.base_shaft_speed)
-        self.electrical_load = self.base_electrical_load + np.random.normal(0, self.load_noise_frac * self.base_electrical_load)
-        
-        self.shaft_speed = np.clip(self.shaft_speed, 0, None)
+        self.shaft_speed = (self.base_shaft_speed + np.random.normal(0, self.speed_noise_frac * self.base_shaft_speed))
+
+        load_fraction = np.clip(self.base_electrical_load / 100, 0, 1)  
+        load_noise_frac = (self.load_noise_base + self.load_noise_slope * load_fraction)
+        self.electrical_load = (self.base_electrical_load + np.random.normal(0, load_noise_frac * self.base_electrical_load))
+
+        # prevents physically invalid operating conditions 
+        self.shaft_speed = np.clip(self.shaft_speed, 0, None) 
         self.electrical_load = np.clip(self.electrical_load, 0, 100)
 
 
@@ -135,28 +142,6 @@ class Simulator:
         self.voltage_history.append(self.voltage)
 
 
-    ## --------------------STEADY STATE DETECTION--------------------
-    def has_reached_steady_state(self, window=10, voltage_tol=0.01, current_tol=0.01, temperature_tol=0.01):
-        '''Determines whether the system has reached steady-state (by checking if
-    variations in voltage, current, and temperature over the most recent
-    time window are negligible.'''
-        
-        if len(self.voltage_history) < window: # ensures enough time-series data points available to assess for steady state
-            return False
-
-        # slicing to extract most recent values
-        v = self.voltage_history[-window:]
-        i = self.current_history[-window:]
-        t = self.temperature_history[-window:]
-
-        # determining if voltage, current, and temperature are in steady state conditions and returning boolean values                    
-        voltage_steady = (max(v) - min(v) < max(voltage_tol * np.mean(v), 0.01))
-        current_steady = (max(i) - min(i) < max(current_tol * np.mean(i), 0.1))
-        temperature_steady = (max(t) - min(t) < max(temperature_tol * np.mean(t), 0.05))
-        
-        return (voltage_steady and current_steady and temperature_steady)
-
-
     ## --------------------DATAFRAME-------------------- 
     def build_dataframe(self):
         '''Creates a Pandas DataFrame containing all recorded simulation
@@ -172,7 +157,7 @@ class Simulator:
 
 
     ## --------------------MAIN SIMULATION LOOP-------------------- 
-    def run(self, simulation_time=300, run_until_steady=False):
+    def run(self, simulation_time=300):
         '''Executes the simulation over the specified duration: either until a specified maximum 
     or until steady state is achieved). At each timestep, operating conditions are updated, 
     output variables are calculated, and results are stored.'''
@@ -184,7 +169,7 @@ class Simulator:
 
         for step in range(steps):
             current_time = step * self.time_step
-
+            
             if step > 0:
                 self.update_operating_conditions()
 
@@ -193,11 +178,6 @@ class Simulator:
             self.compute_voltage()
 
             self.store_timestep(current_time)
-
-            # if enabled, exit the loop only once steady state is achieved, otherwise until maximum simulation duration
-            if run_until_steady:
-                if self.has_reached_steady_state():
-                    break
 
         results = self.build_dataframe()
         return results
