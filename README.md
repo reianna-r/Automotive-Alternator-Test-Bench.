@@ -32,17 +32,12 @@
 
 ## Overview
 
-The Automotive Alternator Test Bench is an independent engineering project developed to simulate and evaluate the electrical and thermal performance of an automotive alternator.
 
-The project is modelled after the **Bosch Long Haul High Output Alternator AL9964SB** and uses a software-based simulation approach to reproduce important aspects of alternator operation without requiring physical alternator hardware.
+This project is a software-in-the-loop automated test bench system that simulates and evaluates the electrical and thermal performance of an automotive alternator. It is modelled after the **Bosch Long Haul High Output Alternator AL9964SB**. In the absence of physical hardware, it implements a dynamic simulation layer [RR1.1]to model alternator behaviour under user-specified test conditions. From this, the system generates time-series based outputs for performance metrics (voltage, current, and temperature). A real-time interactive dashboard visualizes system behaviour and allows analysis through features such as INSERT[RR2.1][RR2.2]. Using scientific computing, data processing, and diagnostics, the system replicates hardware-in-the-loop (HIL) validation workflows commonly used in test and validation engineering environments (but does not currently interface with a physical alternator, external sensors, or hardware test equipment).
 
-The motivation behind this project was to explore how engineering test benches can be developed using software to simulate physical systems, monitor their behaviour, analyze measurement data, and automatically evaluate performance against predefined acceptance criteria.
+The system follows a modular architecture consisting of four primary layers: the simulation layer, analysis layer, validation layer, and user interface (UI) layer. The UI allows operators to define test conditions and parameters, then presenting these results through interactive graphical displays and diagnostic summaries. The simulation layer models the alternator’s electrical and thermal behaviour over time. The validation layer evaluates these generated outputs against performance metrics derived from the **SAE J56 standard** to identify failures and anomalies. The primary objective of this project is to demonstrate how automated test bench systems can improve efficiency in component testing processes. Additionally, the project showcases how preliminary performance validation can be conducted through simulation when physical hardware is unavailable, thus enabling earlier development process.
 
-Rather than simply calculating a single output value, the system simulates alternator behaviour over time under configurable operating conditions. This makes it possible to investigate transient response, steady-state behaviour, electrical output, and thermal performance.
 
-The test bench follows a modular architecture that separates simulation, signal processing, automated validation, and graphical visualization. This resembles the software workflow used in engineering simulation and verification environments.
-
-**The project is implemented as a Software-in-the-Loop (SIL)-style simulation.** It is inspired by Hardware-in-the-Loop (HIL) testing workflows, but does not currently interface with a physical alternator, external sensors, or hardware test equipment.
 
 ### Project Objectives
 
