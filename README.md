@@ -47,16 +47,12 @@ The primary objective of this project is to demonstrate how automated test bench
 | Feature | Description |
 |---|---|
 | Configurable Simulation | Set shaft speed, electrical load, voltage system, and simulation duration. |
-| Dynamic System Modelling | Simulate voltage regulation, current generation, and thermal response over time. |
-| Measurement Generation | Generate time-series voltage, current, temperature, shaft speed, and electrical load data. |
+| Dynamic System Modelling | Simulate and generate time-series voltage, current, and thermal response data. |
 | Signal Processing | Apply Savitzky–Golay filtering to reduce measurement fluctuations. |
-| Steady-State Detection | Evaluate signal stability using sliding measurement windows. |
+| Steady-State Detection | Evaluate signal stability to distinguish transient from steady state behaviours. |
 | Ripple Analysis | Quantify steady-state voltage and current fluctuations. |
-| Current Equilibrium Analysis | Evaluate current variation over a continuous measurement window. |
 | Automated Validation | Evaluate measured performance against predefined acceptance criteria. |
-| Engineering Dashboard | Visualize simulation response and diagnostic information using interactive plots. |
-| Graphical User Interface | Configure and execute simulations through a CustomTkinter interface. |
-| Modular Architecture | Separate simulation, analysis, validation, and visualization components. |
+| Engineering Dashboard | Visualize simulation response and diagnostic information using interactive real-time plots. |
 
 ---
 
