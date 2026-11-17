@@ -34,23 +34,11 @@
 
 This project is a **software-in-the-loop** automated test bench system that simulates and evaluates the electrical and thermal performance of an automotive alternator. It is modelled after the **Bosch Long Haul High Output Alternator AL9964SB**. 
 
-In the absence of physical hardware, it implements a dynamic simulation layer [RR1.1]to model alternator behaviour under user-specified test conditions. From this, the system generates time-series based outputs for performance metrics (voltage, current, and temperature). A real-time interactive dashboard visualizes system behaviour and allows analysis through features such as INSERT[RR2.1][RR2.2]. Using scientific computing, data processing, and diagnostics, the system replicates **hardware-in-the-loop (HIL)** validation workflows commonly used in test and validation engineering environments (but does not currently interface with a physical alternator, external sensors, or hardware test equipment).
+In the absence of physical hardware, it implements a dynamic simulation layer to model alternator behaviour under user-specified test conditions. From this, the system generates time-series based outputs for performance metrics (voltage, current, and temperature). A real-time interactive dashboard visualizes system behaviour and allows analysis through features such as simulator parameter adjustment, real-time time-series visualization, peak and ripple analysis, and transient versus steady-state detection. Using scientific computing, data processing, and diagnostics, the system replicates **hardware-in-the-loop (HIL)** validation workflows commonly used in test and validation engineering environments (but does not currently interface with a physical alternator, external sensors, or hardware test equipment).
 
 The system follows a modular architecture consisting of four primary layers: the simulation layer, analysis layer, validation layer, and user interface (UI) layer. The UI allows operators to define test conditions and parameters, then presenting these results through interactive graphical displays and diagnostic summaries. The simulation layer models the alternator’s electrical and thermal behaviour over time. The validation layer evaluates these generated outputs against performance metrics derived from the **SAE J56 standard** to identify failures and anomalies. 
 
 The primary objective of this project is to demonstrate how automated test bench systems can improve efficiency in component testing processes. Additionally, the project showcases how preliminary performance validation can be conducted through simulation when physical hardware is unavailable, thus enabling earlier development process.
-
-
-
-### Project Objectives
-
-- Develop a mathematical model representing alternator electrical and thermal behaviour.
-- Simulate system response under different shaft speeds and electrical loading conditions.
-- Generate time-series measurement data for voltage, current, and temperature.
-- Apply signal processing techniques to identify transient and steady-state behaviour.
-- Extract engineering performance metrics from simulated measurements.
-- Implement automated validation checks using predefined operating limits.
-- Develop a graphical user interface and interactive engineering dashboard for test configuration, monitoring, and results visualization.
 
 ---
 
@@ -62,7 +50,6 @@ The primary objective of this project is to demonstrate how automated test bench
 | Dynamic System Modelling | Simulate voltage regulation, current generation, and thermal response over time. |
 | Measurement Generation | Generate time-series voltage, current, temperature, shaft speed, and electrical load data. |
 | Signal Processing | Apply Savitzky–Golay filtering to reduce measurement fluctuations. |
-| Peak Detection | Identify significant peaks in simulated measurement signals. |
 | Steady-State Detection | Evaluate signal stability using sliding measurement windows. |
 | Ripple Analysis | Quantify steady-state voltage and current fluctuations. |
 | Current Equilibrium Analysis | Evaluate current variation over a continuous measurement window. |
