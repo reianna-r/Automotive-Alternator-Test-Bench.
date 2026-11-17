@@ -62,6 +62,9 @@ The primary objective of this project is to demonstrate how automated test bench
 
 ## System Architecture
 
+![Automotive Alternator Test Bench Dashboard](Images-and-References/System-Architecture.png)
+
+
 The software is organized into independent modules, each responsible for a specific stage of the test bench workflow.
 
 The main application coordinates communication between the modules and manages the overall simulation process.
