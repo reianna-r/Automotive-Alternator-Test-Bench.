@@ -62,22 +62,18 @@ The primary objective of this project is to demonstrate how automated test bench
 
 ## System Architecture
 
-The software is organized into independent modules, each responsible for a specific stage of the test bench workflow. The main application coordinates communication between the modules and manages the overall simulation process.
+The software is organized into independent modules, each responsible for a specific stage of the test bench workflow. This structure separates the mathematical model from the analysis and validation logic. Consequently, the simulation model can be modified without requiring the entire application to be rewritten. The main application coordinates communication between the modules and manages the overall simulation process.
 
 ![System Architecture](system%20architecture.png)
 
 
-### Software Modules
-
 | Module | Responsibility |
 |---|---|
 | `main.py` | Application entry point. Coordinates simulation execution, background processing, analysis, validation, and result handling. |
-| `simulator.py` | Mathematical simulation engine. Models alternator shaft speed, electrical load, current generation, voltage regulation, and temperature response. |
+| `simulator.py` | Mathematical simulation engine. Models alternator current generation, voltage regulation, and temperature response based on input shaft speed, electrical load,. |
 | `analysis.py` | Processes simulation measurements using filtering, peak detection, steady-state detection, ripple analysis, and current equilibrium calculations. |
-| `validation.py` | Evaluates processed simulation results against predefined performance limits and generates individual and overall validation statuses. |
+| `validation.py` | Evaluates processed simulation results against predefined performance criteria (SAE J56) and generates individual and overall validation statuses. |
 | `ui.py` | Implements the graphical interface and interactive dashboard using CustomTkinter and Plotly Dash. |
-
-This modular structure separates the mathematical model from the analysis and validation logic. Consequently, the simulation model can be modified without requiring the entire application to be rewritten.
 
 ---
 
