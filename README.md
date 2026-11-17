@@ -62,66 +62,10 @@ The primary objective of this project is to demonstrate how automated test bench
 
 ## System Architecture
 
+The software is organized into independent modules, each responsible for a specific stage of the test bench workflow. The main application coordinates communication between the modules and manages the overall simulation process.
 
 ![System Architecture](system%20architecture.png)
 
-
-The software is organized into independent modules, each responsible for a specific stage of the test bench workflow.
-
-The main application coordinates communication between the modules and manages the overall simulation process.
-
-### System Workflow
-
-```text
-                  USER / OPERATOR
-                        |
-                        v
-              CUSTOMTKINTER GUI
-                        |
-              Simulation Parameters
-                        |
-                        v
-                 MAIN APPLICATION
-                        |
-                        v
-                SIMULATION ENGINE
-                        |
-                        v
-               RAW MEASUREMENT DATA
-                        |
-                 Pandas DataFrame
-                        |
-               +--------+--------+
-               |                 |
-               v                 v
-          ANALYSIS LAYER    VALIDATION LAYER
-               |                 |
-       +-------+-------+         |
-       |       |       |         |
-       v       v       v         |
-     Filter  Peaks  Steady       |
-                    State        |
-               |                 |
-               +--------+--------+
-                        |
-                        v
-                PROCESSED RESULTS
-                        |
-                        v
-              PLOTLY DASH DASHBOARD
-                        |
-               +--------+--------+
-               |                 |
-               v                 v
-         RESPONSE PLOTS     DIAGNOSTICS
-               |                 |
-               +--------+--------+
-                        |
-                        v
-                TEST RESULTS
-                 PASS / FAIL /
-                 INCOMPLETE
-```
 
 ### Software Modules
 
