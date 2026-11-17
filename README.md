@@ -62,7 +62,8 @@ The primary objective of this project is to demonstrate how automated test bench
 
 ## System Architecture
 
-![System Architecture](system-architecture.png)
+
+![System Architecture](system%20architecture.png)
 
 
 The software is organized into independent modules, each responsible for a specific stage of the test bench workflow.
