@@ -75,6 +75,7 @@ The software is organized into independent modules, each responsible for a speci
 
 ## Simulation Model
 
+
 The simulation engine approximates the electrical and thermal behaviour of an automotive alternator using mathematical relationships.
 
 The model generates measurements at discrete time intervals, allowing the system's response to be evaluated throughout a simulation.
@@ -85,20 +86,20 @@ The alternator operates under user-defined shaft speed and electrical loading co
 
 Small random disturbances are introduced into the operating conditions to represent measurement and operating fluctuations.
 
-\[
-\omega(t)=\omega_0+\eta_\omega(t)
-\]
+$$
+\omega(t) = \omega_0 + \eta_\omega(t)
+$$
 
-\[
-L(t)=L_0+\eta_L(t)
-\]
+$$
+L(t) = L_0 + \eta_L(t)
+$$
 
 Where:
 
-- \(\omega_0\): Initial shaft speed.
-- \(L_0\): Initial electrical load.
-- \(\eta_\omega(t)\): Random shaft-speed disturbance.
-- \(\eta_L(t)\): Random electrical-load disturbance.
+- $\omega_0$: Initial shaft speed.
+- $L_0$: Initial electrical load.
+- $\eta_\omega(t)$: Random shaft-speed disturbance.
+- $\eta_L(t)$: Random electrical-load disturbance.
 
 ### 2. Current Generation
 
@@ -106,18 +107,18 @@ The generated current depends on shaft speed and electrical loading.
 
 The model uses a speed-dependent saturation relationship:
 
-\[
-I(t)=I_{\max}
+$$
+I(t) = I_{\max}
 \left(1-e^{-\omega(t)/k_{\text{speed}}}\right)
 \frac{L(t)}{100}
-\]
+$$
 
 Where:
 
-- \(I_{\max}\): Maximum model current.
-- \(\omega(t)\): Instantaneous shaft speed.
-- \(k_{\text{speed}}\): Shaft-speed response parameter.
-- \(L(t)\): Electrical load percentage.
+- $I_{\max}$: Maximum model current.
+- $\omega(t)$: Instantaneous shaft speed.
+- $k_{\text{speed}}$: Shaft-speed response parameter.
+- $L(t)$: Electrical load percentage.
 
 The model represents increasing current availability as shaft speed increases, with output also dependent on the electrical load.
 
@@ -127,50 +128,49 @@ The alternator voltage is modelled using a first-order response.
 
 First, a speed-dependent target voltage is calculated:
 
-\[
-V_{\text{target}}(t)=V_{\text{set}}
+$$
+V_{\text{target}}(t) =
+V_{\text{set}}
 \left(1-e^{-\omega(t)/k_v}\right)
-\]
+$$
 
 The actual voltage approaches this target according to:
 
-\[
-\frac{dV}{dt}=
+$$
+\frac{dV}{dt} =
 \frac{V_{\text{target}}(t)-V(t)}{\tau_v}
-\]
+$$
 
 Where:
 
-- \(V_{\text{set}}\): Selected regulated voltage.
-- \(k_v\): Voltage response parameter.
-- \(\tau_v\): Voltage response time constant.
-- \(V(t)\): Simulated output voltage.
+- $V_{\text{set}}$: Selected regulated voltage.
+- $k_v$: Voltage response parameter.
+- $\tau_v$: Voltage response time constant.
+- $V(t)$: Simulated output voltage.
 
 This introduces transient behaviour into the voltage response rather than assuming the output reaches its target instantaneously.
 
 ### 4. Thermal Behaviour
 
-Temperature is modelled using a simplified heat-generation and heat-dissipation relationship.
+Temperature is modelled using a simplified heat-generation and heat-dissipation relationship:
 
-\[
-\frac{dT}{dt}
-=
+$$
+\frac{dT}{dt} =
 k_{\text{heat}}I(t)^2
 -
 k_{\text{cool}}(T-T_{\text{ambient}})
-\]
+$$
 
 Where:
 
-- \(T\): Simulated alternator temperature in Kelvin.
-- \(T_{\text{ambient}}\): Ambient temperature.
-- \(I(t)\): Generated current.
-- \(k_{\text{heat}}\): Heat-generation coefficient.
-- \(k_{\text{cool}}\): Cooling coefficient.
+- $T$: Simulated alternator temperature in Kelvin.
+- $T_{\text{ambient}}$: Ambient temperature.
+- $I(t)$: Generated current.
+- $k_{\text{heat}}$: Heat-generation coefficient.
+- $k_{\text{cool}}$: Cooling coefficient.
 
-The model accounts for increasing heat generation with electrical current and heat dissipation as the alternator temperature rises above ambient.
+The model accounts for increasing heat generation with electrical current and heat dissipation as the alternator
 
-The differential equation is evaluated numerically using a time-stepping approach.
 
 ### Simulation Outputs
 
