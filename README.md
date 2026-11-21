@@ -307,6 +307,11 @@ This includes:
 
 Plotly's interactive graph functionality allows users to inspect the simulated measurement data and investigate specific regions of interest.
 
+![Screenshot](docs/Screenshot%[2].png)
+![Screenshot](docs/Screenshot%[1].png)
+![Screenshot](docs/Screenshot%[3].png)
+![Screenshot](docs/Screenshot%[4].png)
+
 ---
 
 ## Libraries Used
