@@ -82,9 +82,7 @@ The model generates measurements at discrete time intervals, allowing the system
 
 ### 1. Shaft Speed and Electrical Load
 
-The alternator operates under user-defined shaft speed and electrical loading conditions.
-
-Small random disturbances are introduced into the operating conditions to represent measurement and operating fluctuations.
+The alternator operates under user-defined shaft speed and electrical loading conditions. Small random disturbances are introduced into the operating conditions to represent measurement and operating fluctuations.
 
 $$
 \omega(t) = \omega_0 + \eta_\omega(t)
@@ -103,9 +101,7 @@ Where:
 
 ### 2. Current Generation
 
-The generated current depends on shaft speed and electrical loading.
-
-The model uses a speed-dependent saturation relationship:
+The generated current depends on shaft speed and electrical loading. The model uses a speed-dependent saturation relationship that represents increasing current availability as shaft speed increases, with output also dependent on the electrical load.
 
 $$
 I(t) = I_{\max}
@@ -120,13 +116,10 @@ Where:
 - $k_{\text{speed}}$: Shaft-speed response parameter.
 - $L(t)$: Electrical load percentage.
 
-The model represents increasing current availability as shaft speed increases, with output also dependent on the electrical load.
 
 ### 3. Voltage Regulation
 
-The alternator voltage is modelled using a first-order response.
-
-First, a speed-dependent target voltage is calculated:
+The alternator voltage is modelled using a first-order response. First, a speed-dependent target voltage is calculated:
 
 $$
 V_{\text{target}}(t) =
@@ -169,12 +162,12 @@ Where:
 - $k_{\text{heat}}$: Heat-generation coefficient.
 - $k_{\text{cool}}$: Cooling coefficient.
 
-The model accounts for increasing heat generation with electrical current and heat dissipation as the alternator
+The model accounts for increasing heat generation with electrical current and heat dissipation as the alternator temperature rises above ambient.
 
 
 ### Simulation Outputs
 
-The simulator generates a time-series dataset containing:
+The simulator generates a time-series dataset that is passed to the analysis and validation modules:
 
 | Measurement | Unit | Description |
 |---|---|---|
@@ -185,62 +178,35 @@ The simulator generates a time-series dataset containing:
 | Shaft Speed | RPM | Instantaneous shaft rotational speed |
 | Electrical Load | % | Instantaneous electrical loading |
 
-The resulting dataset is passed to the analysis and validation modules.
-
 ---
 
 ## Signal Processing and Analysis
 
-The analysis layer processes the raw simulation measurements to extract useful engineering information.
-
-Instead of evaluating every measurement independently, the analysis module applies signal processing techniques to characterize the system's behaviour over time.
+The analysis layer processes the raw simulation measurements to extract useful information. Instead of evaluating every measurement independently, the analysis module applies signal processing techniques to characterize the system's behaviour over time.
 
 ### 1. Signal Filtering
 
-A Savitzky–Golay filter is applied to the measurement signals to reduce small fluctuations while preserving important signal characteristics.
+A Savitzky–Golay filter is applied to the measurement signals to reduce small fluctuations while preserving important signal characteristics, such that it can be used for steady-state analysis and ripple calculations.
 
 The filter uses:
-
 - Smoothing window: 10 seconds.
 - Polynomial order: 2.
 
-This produces filtered measurement signals that can be used for peak detection, steady-state analysis, and ripple calculations.
+### 2. Steady-State Detection
 
-### 2. Peak Detection
-
-Peak detection is implemented using `scipy.signal.find_peaks`.
-
-Prominence thresholds are used to distinguish significant peaks from smaller fluctuations.
-
-| Signal | Peak Prominence |
-|---|---:|
-| Voltage | 0.2 V |
-| Current | 2 A |
-| Temperature | 1 K |
-
-Peak detection provides information about significant local maxima within the simulated measurement signals.
-
-### 3. Steady-State Detection
-
-Steady-state detection determines when a measurement signal satisfies predefined stability conditions.
-
-The analysis uses sliding measurement windows to evaluate signal variation and rate of change.
+Steady-state detection determines when a measurement signal satisfies predefined stability conditions by using sliding measurement windows to evaluate signal variation and rate of change.
 
 The detection process considers:
-
 - Signal variation within each measurement window.
 - Rate of change over time.
 - Multiple consecutive windows satisfying the stability criteria.
 
-This prevents a signal from being classified as stable based on a single momentary period of low variation.
+This prevents a signal from being classified as stable based on a single momentary period of low variation. Individual steady-state results are evaluated for voltage, current, and temperature.
 
-Individual steady-state results are evaluated for voltage, current, and temperature.
-
-### 4. Ripple Analysis
+### 3. Ripple Analysis
 
 Small fluctuations can remain in measurement signals after steady-state operation has been reached.
-
-Ripple analysis quantifies these fluctuations using the standard deviation of the filtered steady-state measurements:
+Ripple analysis quantifies these fluctuations using the standard deviation of the filtered steady-state measurements (current and voltage):
 
 \[
 \text{Ripple}=\sigma(x_{\text{steady}})
@@ -248,28 +214,18 @@ Ripple analysis quantifies these fluctuations using the standard deviation of th
 
 Where \(x_{\text{steady}}\) represents the filtered measurement data within the steady-state region.
 
-The current implementation calculates voltage and current ripple.
-
-**Note:** The reported ripple is a standard-deviation measurement, not a peak-to-peak ripple measurement.
 
 ### 5. Current Equilibrium Analysis
 
 Current equilibrium is evaluated separately from the general steady-state detection process.
 
-The analysis requires a continuous 300-second current measurement window and evaluates current variation over that interval.
-
-The current equilibrium criterion uses an allowed variation of approximately 2%.
-
-The analysis reports whether the required measurement window was completed, the average current, the measured variation, and whether the equilibrium criterion was satisfied.
+The analysis requires a continuous 300-second (5 minute) current measurement window and evaluates current variation over that interval, as is detailed according to SAE J56 standards. The current equilibrium criterion uses an allowed variation of approximately 2%.
 
 ---
 
 ## Automated Validation
 
-The validation layer evaluates the processed simulation results against predefined acceptance criteria.
-
-Each validation function operates independently and returns a structured result containing:
-
+The validation layer evaluates the processed simulation results against the SAE J65 standard for determination of the electrical characteristic data of alternators for road vehicles.  Each validation function operates independently and returns a structured result containing:
 - Validation status.
 - Boolean pass/fail value, where applicable.
 - Diagnostic message explaining the result.
@@ -293,15 +249,10 @@ The system supports three individual validation statuses:
 | Voltage Ripple | Voltage ripple must not exceed 0.1 V. | Evaluates steady-state voltage standard deviation. |
 | Ambient Temperature | Ambient temperature must be between 18°C and 28°C. | Checks the configured ambient temperature parameter. |
 
-**Important:** The 275 A current check currently verifies that the simulated current does not exceed the configured maximum limit. It does not independently verify that the alternator can deliver 275 A under a specified RPM and load condition.
-
-The criteria are project-defined reference limits informed by the alternator model and engineering references. Their implementation does not establish formal certification or compliance with SAE J56.
 
 ### Overall System Evaluation
 
 After all individual validation checks are completed, the validation module determines the overall system status.
-
-The decision logic is:
 
 ```text
               Evaluate All Checks
@@ -319,15 +270,6 @@ The decision logic is:
                          v         v
                     INCOMPLETE    PASS
 ```
-
-The overall status follows these rules:
-
-- **FAIL:** At least one validation criterion fails.
-- **INCOMPLETE:** No criterion fails, but at least one criterion could not be tested.
-- **PASS:** All validation criteria pass.
-
-This approach prevents the system from reporting an overall PASS when required measurements are unavailable.
-
 ---
 
 ## User Interface and Visualization
