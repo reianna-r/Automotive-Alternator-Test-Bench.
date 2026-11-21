@@ -370,44 +370,30 @@ The current project provides a software-based simulation and automated evaluatio
 
 ### Simulation Improvements
 
-- Develop a more detailed alternator electrical model.
 - Incorporate additional physical operating characteristics and parameter identification from manufacturer data.
-- Improve the representation of voltage regulator dynamics.
 - Introduce additional transient operating conditions.
 
 ### Analysis Improvements
 
 - Implement automated rise-time, overshoot, and settling-time calculations.
-- Expand ripple analysis to include peak-to-peak measurements.
-- Improve steady-state detection for signals with persistent fluctuations.
 - Introduce additional statistical performance indicators.
 
 ### Validation Improvements
 
 - Add rated-output capability checks at specified shaft speeds and electrical loads.
-- Introduce additional transient performance checks.
-- Expand acceptance criteria using verified manufacturer specifications and applicable engineering test procedures.
 - Add automated unit and integration testing.
 
 ### Hardware-in-the-Loop Development
 
-The current implementation is software-based and does not communicate with physical hardware.
-
-A future extension could introduce external sensors, data acquisition hardware, and physical alternator measurements to support a Hardware-in-the-Loop (HIL) testing environment.
-
-This would allow simulated operating conditions to be compared with measurements from an actual alternator and provide a pathway toward hardware-based verification.
+The current implementation is software-in-the-loop and does not communicate with physical hardware. A future extension could introduce external sensors, and physical alternator measurements 
+to support a Hardware-in-the-Loop (HIL) testing environment. This would allow simulated operating conditions to be compared with measurements from an actual alternator.
 
 ---
 
-## Engineering References
+## References
 
-The project was developed with reference to the following engineering materials and concepts:
-
-1. **Bosch Long Haul High Output Alternator AL9964SB** — Reference alternator model.
-2. **SAE J56** — Automotive alternator performance testing reference.
-3. **Control Systems Engineering Concepts** — First-order system response, transient behaviour, and steady-state performance.
-4. **Numerical Methods** — Numerical integration and time-stepping methods.
-5. **Signal Processing** — Savitzky–Golay filtering, peak detection, and statistical signal analysis.
+1. SAE J56 (June 1999): Road Vehicles—Alternators with Regulators—Test Methods and General Requirements.
+2. Bosch AL9964SB product brochure: Long Haul High Output Alternator, model AL9964SB.
 
 *The project uses these references to inform its modelling and evaluation approach. It is not a certified implementation of an SAE J56 test procedure.*
 
