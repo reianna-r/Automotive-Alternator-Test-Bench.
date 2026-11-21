@@ -203,11 +203,11 @@ This prevents a signal from being classified as stable based on a single momenta
 Small fluctuations can remain in measurement signals after steady-state operation has been reached.
 Ripple analysis quantifies these fluctuations using the standard deviation of the filtered steady-state measurements (current and voltage):
 
-\[
-\text{Ripple}=\sigma(x_{\text{steady}})
-\]
+$$
+\mathrm{Ripple} = \sigma(x_{\mathrm{steady}})
+$$
 
-Where \(x_{\text{steady}}\) represents the filtered measurement data within the steady-state region.
+Where $x_{\mathrm{steady}}$ represents the filtered measurement data within the steady-state region.
 
 
 ### 5. Current Equilibrium Analysis
