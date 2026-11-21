@@ -148,8 +148,9 @@ This introduces transient behaviour into the voltage response rather than assumi
 Temperature is modelled using a simplified heat-generation and heat-dissipation relationship:
 
 $$
-\frac{dT}{dt} =
-k_{\text{heat}}I(t)^2
+\frac{dT}{dt}
+=
+k_{\text{heat}} I(t)^2
 -
 k_{\text{cool}}(T-T_{\text{ambient}})
 $$
