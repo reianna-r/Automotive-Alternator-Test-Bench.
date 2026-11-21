@@ -145,16 +145,9 @@ This introduces transient behaviour into the voltage response rather than assumi
 
 ### 4. Thermal Behaviour
 
-Temperature is modelled using a simplified heat-generation and heat-dissipation relationship:
+Temperature is modelled using a simplified heat-generation and heat-dissipation relationship.
 
-$$
-\frac{dT}{dt}
-=
-k_{\text{heat}} I(t)^2
--
-k_{\text{cool}}(T-T_{\text{ambient}})
-$$
-
+$$\frac{dT}{dt} = k_{\mathrm{heat}} I(t)^2 - k_{\mathrm{cool}}(T-T_{\mathrm{ambient}})$$
 Where:
 
 - $T$: Simulated alternator temperature in Kelvin.
