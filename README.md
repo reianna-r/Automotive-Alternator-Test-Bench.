@@ -334,7 +334,6 @@ In order to run the project, the following must be installed:
 - Git.
 - A code editor such as Visual Studio Code.
 - Python packages: numpy, pandas, scipy, customtkinter, plotly, dash
-```
 
 ---
 
