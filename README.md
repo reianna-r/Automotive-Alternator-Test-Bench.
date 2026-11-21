@@ -58,7 +58,7 @@ The primary objective of this project is to demonstrate how automated test bench
 
 The software is organized into independent modules, each responsible for a specific stage of the test bench workflow. This structure separates the mathematical model from the analysis and validation logic. Consequently, the simulation model can be modified without requiring the entire application to be rewritten. The main application coordinates communication between the modules and manages the overall simulation process.
 
-![docs](system%20architecture.png)
+![System Architecture](docs/system%20architecture.png)
 
 | Module | Responsibility |
 |---|---|
