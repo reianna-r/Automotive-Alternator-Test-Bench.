@@ -329,80 +329,16 @@ Plotly's interactive graph functionality allows users to inspect the simulated m
 
 ### Prerequisites
 
-Before running the project, ensure the following are installed:
+In order to run the project, the following must be installed: 
 - Python 3.
 - Git.
 - A code editor such as Visual Studio Code.
-
-The project uses Python libraries for numerical simulation, data analysis, and graphical visualization.
-
-### 1. Clone the Repository
-
-Open a terminal and run:
-
-```bash
-git clone https://github.com/reianna-r/Automotive-Alternator-Test-Bench..git
+- Python packages: numpy, pandas, scipy, customtkinter, plotly, dash
 ```
-
-Navigate into the project directory:
-
-```bash
-cd Automotive-Alternator-Test-Bench
-```
-
-If the repository's actual folder name differs, use the folder created by Git when cloning.
-
-### 2. Create a Virtual Environment
-
-Creating a virtual environment keeps project dependencies separate from other Python installations.
-
-**Windows:**
-
-```bash
-py -m venv venv
-```
-
-Activate the environment:
-
-```bash
-venv\Scripts\activate
-```
-
-**macOS / Linux:**
-
-```bash
-python3 -m venv venv
-source venv/bin/activate
-```
-
-### 3. Install Dependencies
-
-Install the required Python packages:
-
-```bash
-python -m pip install numpy pandas scipy customtkinter plotly dash
-```
-
-### 4. Run the Application
-
-From the project root directory, execute:
-
-```bash
-python main.py
-```
-
-On Windows, if the `python` command is unavailable, use:
-
-```bash
-py main.py
-```
-
-The main application initializes the simulation workflow and graphical interface.
 
 ---
-
 ## Repository Structure
-
+---
 The project is organized into separate Python modules to maintain a clear separation between simulation, analysis, validation, and visualization.
 
 ```text
