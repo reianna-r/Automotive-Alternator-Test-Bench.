@@ -148,6 +148,7 @@ This introduces transient behaviour into the voltage response rather than assumi
 Temperature is modelled using a simplified heat-generation and heat-dissipation relationship.
 
 $$\frac{dT}{dt} = k_{\mathrm{heat}} I(t)^2 - k_{\mathrm{cool}}(T-T_{\mathrm{ambient}})$$
+
 Where:
 
 - $T$: Simulated alternator temperature in Kelvin.
@@ -268,9 +269,7 @@ After all individual validation checks are completed, the validation module dete
 
 ## User Interface and Visualization
 
-The UI layer provides the operator-facing interface for configuring simulations, monitoring system behaviour, and reviewing analysis and validation results.
-
-It combines a CustomTkinter graphical interface with a Plotly Dash engineering dashboard.
+The UI layer provides the operator-facing interface for configuring simulations, monitoring system behaviour, and reviewing analysis and validation results. It combines a CustomTkinter graphical interface with a Plotly Dash engineering dashboard.
 
 ### 1. Simulation Control Interface
 
@@ -285,19 +284,17 @@ Users can specify operating conditions such as:
 
 The interface also manages simulation execution and provides access to the associated visualization dashboard.
 
-Background simulation execution helps maintain interface responsiveness while computational processing is performed.
 
 ### 2. Engineering Data Dashboard
 
 The Plotly Dash dashboard provides interactive time-series visualization of the simulated alternator measurements.
 
 The primary plots display:
-
 - Voltage vs. time.
 - Current vs. time.
 - Temperature vs. time.
 
-These plots allow users to examine transient response, identify signal fluctuations, and interpret steady-state behaviour.
+These plots allows examination of transient response, signal fluctuations, and steady-state behaviour.
 
 ### 3. Diagnostic and Performance Visualization
 
@@ -307,40 +304,24 @@ This includes:
 
 - Voltage, current, and temperature response curves.
 - Detected steady-state information.
-- Peak detection results.
 - Voltage and current ripple measurements.
 - Current equilibrium information.
 - Validation results and overall system status.
 
 Plotly's interactive graph functionality allows users to inspect the simulated measurement data and investigate specific regions of interest.
 
-### Future Visualization Enhancements
-
-Potential extensions to the dashboard include:
-
-- Automated rise-time, overshoot, and settling-time metrics.
-- Shaded steady-state tolerance bands.
-- Markers identifying settling points and significant peaks.
-- Magnified steady-state ripple visualization panels.
-- Diagnostic cards displaying peak count, ripple percentage, and stability metrics.
-
-These enhancements would further develop the dashboard into an engineering-oriented simulation and diagnostic interface.
-
 ---
 
-## Technologies
+## Libraries Used
 
-| Technology | Application |
+| Library | Application |
 |---|---|
-| Python | Main programming language and application development |
 | NumPy | Numerical calculations and mathematical modelling |
 | Pandas | Time-series measurement storage and DataFrame processing |
 | SciPy | Signal filtering and peak detection |
 | CustomTkinter | Graphical user interface and simulation controls |
 | Plotly | Interactive engineering plots and data visualization |
 | Dash | Interactive dashboard application |
-| Git | Version control and source code management |
-| GitHub | Project repository and version tracking |
 
 ---
 
@@ -349,7 +330,6 @@ These enhancements would further develop the dashboard into an engineering-orien
 ### Prerequisites
 
 Before running the project, ensure the following are installed:
-
 - Python 3.
 - Git.
 - A code editor such as Visual Studio Code.
