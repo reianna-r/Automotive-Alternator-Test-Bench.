@@ -21,9 +21,7 @@
 | [Signal Processing and Analysis](#signal-processing-and-analysis) | Filtering, peak detection, ripple and steady-state analysis |
 | [Automated Validation](#automated-validation) | Performance criteria and PASS/FAIL evaluation |
 | [User Interface and Visualization](#user-interface-and-visualization) | Simulation controls and dashboard |
-| [Technologies](#technologies) | Languages and libraries |
 | [Getting Started](#getting-started) | Installation and execution |
-| [Repository Structure](#repository-structure) | Project organization |
 | [Known Limitations](#known-limitations-and-future-development) | Current limitations and planned improvements |
 | [References](#references) | Technical references |
 
