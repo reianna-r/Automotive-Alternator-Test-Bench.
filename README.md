@@ -337,34 +337,6 @@ In order to run the project, the following must be installed:
 ```
 
 ---
-## Repository Structure
----
-The project is organized into separate Python modules to maintain a clear separation between simulation, analysis, validation, and visualization.
-
-```text
-Automotive-Alternator-Test-Bench/
-│
-├── main.py
-│   └── Application entry point and workflow coordination
-│
-├── simulator.py
-│   └── Alternator mathematical simulation engine
-│
-├── analysis.py
-│   └── Signal processing and performance analysis
-│
-├── validation.py
-│   └── Automated acceptance checks and result evaluation
-│
-├── ui.py
-│   └── CustomTkinter interface and Plotly Dash dashboard
-│
-├── .gitignore
-│
-└── README.md
-```
-
----
 
 ## Testing and Verification
 
@@ -388,11 +360,8 @@ The application can be evaluated by executing simulations under different operat
 2. Execute the simulation.
 3. Review the generated voltage, current, temperature, shaft speed, and electrical load measurements.
 4. Examine the filtered signals and steady-state detection results.
-5. Review peak detection and ripple analysis.
-6. Inspect the individual validation outcomes.
-7. Confirm that the overall system status correctly reflects the individual validation results.
-
-**Automated test suite:** A dedicated automated unit-test suite is not currently documented as part of this project. The scenarios above describe manual functional verification of the simulation and validation workflow.
+5. Inspect the individual validation outcomes.
+6. Confirm that the overall system status correctly reflects the individual validation results.
 
 ---
 
